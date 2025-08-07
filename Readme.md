@@ -58,7 +58,7 @@ Para el caso de los contenedores de bases de datos, por ejemplo MYSQL, se debe e
 
 ``docker run -d --name <nombre-contenedor> --network <nombre de red> -p <puerto-a-exponer-dentro-de-la-mv>:<puerto-contenedor-donde-corre-servicio> -e MYSQL_ROOT_PASSWORD=<password> -e MYSQL_DATABASE=<nombre-base-de-datos> mysql``
 
-Algunas veces el environment no se encuentra seteado en el backend y debe ser pasado como argumento en el docker run.
+Algunas veces el environment no se encuentra seteado en el backend y debe ser pasado como argumento en el docker run. En este caso, mysql debe ser el nombre del contenedor de base de datos.
 
 ``docker run -d --name <nombre-contenedor> --network <nombre-red> -p <puerto-a-exponer-dentro-de-la-mv>:<puerto-contenedor-donde-corre-servicio> --env spring.datasource.url=jdbc:mysql://mysql:3306/db_ecommerce <nombre-de-imagen>``
 
