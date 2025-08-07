@@ -70,7 +70,7 @@ Para inspeccionar la red y verificar que los contenedores han sido añadidos de 
 
 Aveces los contenedores pueden caerse debido a un problema en su ejecución.
 
-``sudo docker <nombre-contenedor> logs ``
+``sudo docker logs <nombre-contenedor> ``
 
 Permite ver los ultimos registros del contenedor para encontrar fallas.
 
