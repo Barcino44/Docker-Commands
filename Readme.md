@@ -52,11 +52,15 @@ La creación de una network se realiza de la siguiente manera.
 
 Para unir un contenedor a la red, se ejecuta el comando.
 
-``docker run -d --name <nombre-contenedor> --network <nombre de red> -p <puerto-a-exponer>:<puerto-contenedor> <nombre de imagen>``
+``docker run -d --name <nombre-contenedor> --network <nombre de red> -p <puerto-a-exponer-dentro-de-la-mv>:<puerto-contenedor-donde-corre-servicio> <nombre-de-imagen>``
 
 Para el caso de los contenedores de bases de datos, por ejemplo MYSQL, se debe establecer las variables de entorno que serán usadas por el backend para acceder a ella.
 
-``docker run -d --name <nombre-contenedor> --network <nombre de red> -p <puerto-a-exponer>:<puerto-contenedor> -e MYSQL_ROOT_PASSWORD=<password> -e MYSQL_DATABASE=<nombre-base-de-datos> mysql``
+``docker run -d --name <nombre-contenedor> --network <nombre de red> -p <puerto-a-exponer-dentro-de-la-mv>:<puerto-contenedor-donde-corre-servicio> -e MYSQL_ROOT_PASSWORD=<password> -e MYSQL_DATABASE=<nombre-base-de-datos> mysql``
+
+Algunas veces el environment no se encuentra seteado en el backend y debe ser pasado como argumento en el docker run.
+
+``docker run -d --name <nombre-contenedor> --network <nombre-red> -p <puerto-a-exponer-dentro-de-la-mv>:<puerto-contenedor-donde-corre-servicio> --env spring.datasource.url=jdbc:mysql://mysql:3306/db_ecommerce <nombre-de-imagen>``
 
 Para inspeccionar la red y verificar que los contenedores han sido añadidos de esta, se ejecuta el comando. 
 
