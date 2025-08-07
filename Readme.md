@@ -75,6 +75,38 @@ Aveces los contenedores pueden caerse debido a un problema en su ejecución.
 Permite ver los ultimos registros del contenedor para encontrar fallas.
 
 
+#5. Autofirmado de certificados SSL.
 
+Se genera una llave privada:
 
+``openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:2048 -out barcino.tel.key``
+
+Se genera la solicitud del certificado.
+
+``openssl req -new -key barcino.tel.key -out barcino.tel.csr``
+
+Se autofirma dicho certificado.
+
+``openssl x509 -req -days 365 -in barcino.tel.csr -signkey barcino.tel.key -out barcino.tel.crt``
+
+Se ubica dichos certificados en el archivo ``/etc/nginx/sites-available/default``
+
+````
+listen 443 ssl default_server;
+listen [::]:443 ssl default_server;
+
+ssl_certificate /etc/nginx/sites-available/barcino.tel.crt;
+ssl_certificate_key /etc/nginx/sites-available/barcino.tel.key;
+ssl_protocols TLSv1.2 TLSv1.3;
+
+location / {                                                                                                                                                            
+                # First attempt to serve request as file, then                                                                                                                  
+                # as directory, then fall back to displaying a 404.                                                                                                             
+                try_files $uri $uri/ =404;                                                                                                                                      
+                proxy_set_header Host $host;                                                                                                                                    
+                proxy_set_header X-Real-IP $remote_addr;                                                                                                                        
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;                                                                                                    
+                proxy_set_header X-Forwarded-Proto $scheme;                                                                                                                     
+        }   
+````
 
