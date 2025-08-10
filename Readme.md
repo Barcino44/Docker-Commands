@@ -98,7 +98,7 @@ services:
       dockerfile: Dockerfile
     container_name: front
     ports:
-      - "80:80"
+      - "80:80" #puerto-máquina-virtual:<puerto-interno-contenedor>
     networks:
       - mynet
 
@@ -122,6 +122,7 @@ networks:
     driver: bridge
 
 ````
+El anterior docker-compose permite levantar todos los contenedores mencionados anteriormente sin necesidad de ejecutar varias veces docker run y definir la network. Todo se realiza directamente desde allí.
 
 # 5. AUTOFIRMADO DE CERTIFICADOS SSL.
 
