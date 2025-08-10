@@ -105,20 +105,25 @@ services:
   mysql:
     image: mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=password #Parámetros de la base de datos
+      - MYSQL_ROOT_PASSWORD=password
       - MYSQL_DATABASE=db_ecommerce
     container_name: mysql
     ports:
       - "3306:3306"
     networks:
       - mynet
-    healthcheck: #Se realiza un health-check a la base de datos con el fin de que el back espere para que pueda conectarse a ella. 
-         test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-ppassword"]  #ping a localhost
+    healthcheck:
+         test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-ppassword"]
          interval: 30s
          timeout: 5s
          retries: 5
-networks:
-  mynet:                                                                                                                                                         
+    volumes:                                                                                                                              
+      - mysql_data:/var/lib/mysql                                                                                                         
+                                                                                                                                          
+volumes:                                                                                                                                  
+  mysql_data:                                                                                                                             
+networks:                                                                                                                                 
+  mynet:                                                                                                                                  
     driver: bridge
 
 ````
