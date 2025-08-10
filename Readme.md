@@ -74,8 +74,56 @@ Aveces los contenedores pueden caerse debido a un problema en su ejecución.
 
 Permite ver los ultimos registros del contenedor para encontrar fallas.
 
+# 5. DOCKER COMPOSE
 
-# 5.AUTOFIRMADO DE CERTIFICADOS SSL.
+Docker compose permite facilitar la creación y orquestación de contenedores. A continuación se presenta un ejemplo.
+````
+services:
+  backendsvc:
+    build:
+      context: ./Kubernetes-and-ngrok/Backend-Infra-III
+      dockerfile: Dockerfile
+    container_name: back
+    ports:
+      - "8080:8080"
+    networks:
+      - mynet
+    depends_on:
+      mysql:
+        condition: service_healthy #Espero a que el servicio esté healthy (Health check).
+
+  frontensvc:
+    build:
+      context: ./Kubernetes-and-ngrok/Frontend-Infra-III
+      dockerfile: Dockerfile
+    container_name: front
+    ports:
+      - "80:80"
+    networks:
+      - mynet
+
+  mysql:
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=password #Parámetros de la base de datos
+      - MYSQL_DATABASE=db_ecommerce
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - mynet
+    healthcheck: #Se realiza un health-check a la base de datos con el fin de que el back espere para que pueda conectarse a ella. 
+         test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-ppassword"]  #ping a localhost
+         interval: 30s
+         timeout: 5s
+         retries: 5
+networks:
+  mynet:                                                                                                                                                         
+    driver: bridge
+
+````
+
+# 5. AUTOFIRMADO DE CERTIFICADOS SSL.
 
 Se genera una llave privada:
 
