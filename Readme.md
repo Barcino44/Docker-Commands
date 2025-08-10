@@ -124,7 +124,7 @@ networks:
 ````
 El anterior docker-compose permite levantar todos los contenedores mencionados anteriormente sin necesidad de ejecutar varias veces docker run y definir la network. Todo se realiza directamente desde allí.
 
-# 5. AUTOFIRMADO DE CERTIFICADOS SSL.
+# 6. AUTOFIRMADO DE CERTIFICADOS SSL.
 
 Se genera una llave privada:
 
