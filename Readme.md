@@ -75,7 +75,7 @@ Aveces los contenedores pueden caerse debido a un problema en su ejecución.
 Permite ver los ultimos registros del contenedor para encontrar fallas.
 
 
-#5. Autofirmado de certificados SSL.
+# 5. Autofirmado de certificados SSL.
 
 Se genera una llave privada:
 
