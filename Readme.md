@@ -164,3 +164,10 @@ location / {
         }   
 ````
 
+# 7. CREACIÓN DE VOLUMENES VIA DOCKER RUN.
+````
+docker volume create nombre-volumen
+````
+````
+docker run -v nombre-volumen:/var/lib/mysql mysql
+````
